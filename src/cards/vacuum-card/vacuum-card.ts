@@ -55,6 +55,8 @@ import {
 import { isCleaning, isReturningHome } from "./utils";
 import { VacuumCardConfig } from "./vacuum-card-config";
 
+const MODE_ICON = "mdi:broom";
+
 registerCustomCard({
   type: VACUUM_CARD_NAME,
   name: "Mushroom Vacuum Card",
@@ -282,6 +284,7 @@ export class VacuumCard
                         <mushroom-select-option-control
                           .hass=${this.hass}
                           .entity=${modeStateObj}
+                          .icon=${MODE_ICON}
                         ></mushroom-select-option-control>
                       `
                     : nothing}

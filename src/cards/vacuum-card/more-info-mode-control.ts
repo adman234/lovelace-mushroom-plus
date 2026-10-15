@@ -60,11 +60,7 @@ export class VacuumMoreInfoModeControl extends LitElement {
           }))}
           @wa-select=${this._selectChanged}
         >
-          <ha-state-icon
-            slot="icon"
-            .hass=${this.hass}
-            .stateObj=${stateObj}
-          ></ha-state-icon>
+          <ha-icon slot="icon" icon="mdi:broom"></ha-icon>
         </ha-control-select-menu>
       `;
     }
@@ -80,11 +76,7 @@ export class VacuumMoreInfoModeControl extends LitElement {
         @closed=${(e) => e.stopPropagation()}
         @selected=${this._selectChanged}
       >
-        <ha-state-icon
-          slot="icon"
-          .hass=${this.hass}
-          .stateObj=${stateObj}
-        ></ha-state-icon>
+        <ha-icon slot="icon" icon="mdi:broom"></ha-icon>
         ${options.map(
           (option) => html`
             <ha-list-item .value=${option}>

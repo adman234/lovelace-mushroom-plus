@@ -2896,7 +2896,7 @@ var t,e,o,i,n,r,a,s,l,c,u,h,d,p,m,f,g,_,v,b,y,w,k,$,C,E,x,A,S,T,M,I,z,P,N,O,j,B,
         mushroom-state-item {
           cursor: pointer;
         }
-      `]}};lT=_n([Bt(KS)],lT);var cT=kt(()=>{vg(),aT=`${rT=`${cg}-select-card`}-editor`,sT=["input_select","select"]});function uT(t){return null!=t.state?t.state:void 0}cT(),Vt(),je(),mn(),bn();var hT,dT=class extends Ot{_selectChanged(t){let e;e=an(this.hass.connection.haVersion,2026,3)?t.detail.item.value:t.target.value;const o=uT(this.entity);e&&e!==o&&this._setValue(e)}_setValue(t){const e=this.entity.entity_id.split(".")[0];this.hass.callService(e,"select_option",{entity_id:this.entity.entity_id,option:t})}render(){const t=uT(this.entity),e=this.entity.attributes.options;return an(this.hass.connection.haVersion,2026,3)?J`
+      `]}};lT=_n([Bt(KS)],lT);var cT=kt(()=>{vg(),aT=`${rT=`${cg}-select-card`}-editor`,sT=["input_select","select"]});function uT(t){return null!=t.state?t.state:void 0}cT(),Vt(),je(),mn(),bn();var hT,dT=class extends Ot{_selectChanged(t){let e;e=an(this.hass.connection.haVersion,2026,3)?t.detail.item.value:t.target.value;const o=uT(this.entity);e&&e!==o&&this._setValue(e)}_setValue(t){const e=this.entity.entity_id.split(".")[0];this.hass.callService(e,"select_option",{entity_id:this.entity.entity_id,option:t})}_renderIcon(){return this.icon?J`<ha-icon slot="icon" .icon=${this.icon}></ha-icon>`:et}render(){const t=uT(this.entity),e=this.entity.attributes.options;return an(this.hass.connection.haVersion,2026,3)?J`
         <ha-control-select-menu
           show-arrow
           hide-label
@@ -2904,7 +2904,9 @@ var t,e,o,i,n,r,a,s,l,c,u,h,d,p,m,f,g,_,v,b,y,w,k,$,C,E,x,A,S,T,M,I,z,P,N,O,j,B,
           .value=${null!=t?t:""}
           .options=${e.map(t=>({value:t,label:this.hass.formatEntityState(this.entity,t)}))}
           @wa-select=${this._selectChanged}
-        ></ha-control-select-menu>
+        >
+          ${this._renderIcon()}
+        </ha-control-select-menu>
       `:J`
       <ha-control-select-menu
         show-arrow
@@ -2916,6 +2918,7 @@ var t,e,o,i,n,r,a,s,l,c,u,h,d,p,m,f,g,_,v,b,y,w,k,$,C,E,x,A,S,T,M,I,z,P,N,O,j,B,
         @closed=${t=>t.stopPropagation()}
         @selected=${this._selectChanged}
       >
+        ${this._renderIcon()}
         ${e.map(t=>J`
             <ha-list-item .value=${t}>
               ${this.hass.formatEntityState(this.entity,t)}
@@ -2933,7 +2936,7 @@ var t,e,o,i,n,r,a,s,l,c,u,h,d,p,m,f,g,_,v,b,y,w,k,$,C,E,x,A,S,T,M,I,z,P,N,O,j,B,
         --control-select-menu-height: var(--control-height);
         --control-select-menu-border-radius: var(--control-border-radius);
       }
-    `}};_n([Gt()],dT.prototype,"hass",void 0),_n([Gt({attribute:!1})],dT.prototype,"entity",void 0),dT=_n([Bt("mushroom-select-option-control")],dT);var pT,mT,fT,gT=kt(()=>{To(),Eg(),Yg(),Zg(),Jg(),hT=mo(Rg,mo(Hg,Cg,fg),$o({icon_color:Co(Eo())}))}),_T=/* @__PURE__ */Ct({SelectCardEditor:()=>fT}),vT=kt(()=>{Vt(),je(),Oi(),To(),mn(),Vc(),Eg(),Yg(),eg(),qg(),Wg(),Xg(),gT(),bn(),pT=["more-info","navigate","url","perform-action","assist","none"],mT=vi((t,e)=>[{name:"entity",selector:{entity:{domain:sT}}},Og(e),{type:"grid",name:"",schema:[{name:"icon",selector:{icon:{}},context:{icon_entity:"entity"}},{name:"icon_color",selector:{ui_color:{}}}]},...zg(t),...gg(pT)]),fT=class extends qf{constructor(...t){super(...t),this._computeLabel=t=>{const e=hc(this.hass);return Pg.includes(t.name)?e(`editor.card.generic.${t.name}`):this.hass.localize(`ui.panel.lovelace.editor.card.generic.${t.name}`)}}connectedCallback(){super.connectedCallback(),jg()}setConfig(t){ho(t,hT),this._config=t}render(){if(!this.hass||!this._config)return et;const t=mT(hc(this.hass),this.hass.config.version);return J`
+    `}};_n([Gt()],dT.prototype,"hass",void 0),_n([Gt({attribute:!1})],dT.prototype,"entity",void 0),_n([Gt()],dT.prototype,"icon",void 0),dT=_n([Bt("mushroom-select-option-control")],dT);var pT,mT,fT,gT=kt(()=>{To(),Eg(),Yg(),Zg(),Jg(),hT=mo(Rg,mo(Hg,Cg,fg),$o({icon_color:Co(Eo())}))}),_T=/* @__PURE__ */Ct({SelectCardEditor:()=>fT}),vT=kt(()=>{Vt(),je(),Oi(),To(),mn(),Vc(),Eg(),Yg(),eg(),qg(),Wg(),Xg(),gT(),bn(),pT=["more-info","navigate","url","perform-action","assist","none"],mT=vi((t,e)=>[{name:"entity",selector:{entity:{domain:sT}}},Og(e),{type:"grid",name:"",schema:[{name:"icon",selector:{icon:{}},context:{icon_entity:"entity"}},{name:"icon_color",selector:{ui_color:{}}}]},...zg(t),...gg(pT)]),fT=class extends qf{constructor(...t){super(...t),this._computeLabel=t=>{const e=hc(this.hass);return Pg.includes(t.name)?e(`editor.card.generic.${t.name}`):this.hass.localize(`ui.panel.lovelace.editor.card.generic.${t.name}`)}}connectedCallback(){super.connectedCallback(),jg()}setConfig(t){ho(t,hT),this._config=t}render(){if(!this.hass||!this._config)return et;const t=mT(hc(this.hass),this.hass.config.version);return J`
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
@@ -3606,11 +3609,7 @@ var t,e,o,i,n,r,a,s,l,c,u,h,d,p,m,f,g,_,v,b,y,w,k,$,C,E,x,A,S,T,M,I,z,P,N,O,j,B,
           .options=${o.map(t=>({value:t,label:this.hass.formatEntityState(e,t)}))}
           @wa-select=${this._selectChanged}
         >
-          <ha-state-icon
-            slot="icon"
-            .hass=${this.hass}
-            .stateObj=${e}
-          ></ha-state-icon>
+          <ha-icon slot="icon" icon="mdi:broom"></ha-icon>
         </ha-control-select-menu>
       `:J`
       <ha-control-select-menu
@@ -3623,11 +3622,7 @@ var t,e,o,i,n,r,a,s,l,c,u,h,d,p,m,f,g,_,v,b,y,w,k,$,C,E,x,A,S,T,M,I,z,P,N,O,j,B,
         @closed=${t=>t.stopPropagation()}
         @selected=${this._selectChanged}
       >
-        <ha-state-icon
-          slot="icon"
-          .hass=${this.hass}
-          .stateObj=${e}
-        ></ha-state-icon>
+        <ha-icon slot="icon" icon="mdi:broom"></ha-icon>
         ${o.map(t=>J`
             <ha-list-item .value=${t}>
               ${this.hass.formatEntityState(e,t)}
@@ -3649,7 +3644,7 @@ var t,e,o,i,n,r,a,s,l,c,u,h,d,p,m,f,g,_,v,b,y,w,k,$,C,E,x,A,S,T,M,I,z,P,N,O,j,B,
         .computeLabel=${this._computeLabel}
         @value-changed=${this._valueChanged}
       ></ha-form>
-    `}_valueChanged(t){ve(this,"config-changed",{config:t.detail.value})}},_n([ie()],VM.prototype,"_config",void 0),VM=_n([Bt(kM)],VM)});Vt(),je(),De(),Re(),mn(),yn(),Nn(),jn(),Bn(),Ln(),_g(),ng(),EM(),bn(),lg({type:wM,name:"Mushroom Vacuum Card",description:"Card for vacuum entity"});var YM,qM=class extends rg{static async getConfigElement(){return await Promise.resolve().then(()=>(KM(),GM)),document.createElement(kM)}static async getStubConfig(t){const e=Object.keys(t.states).filter(t=>$M.includes(t.split(".")[0]));return{type:`custom:${wM}`,entity:e[0]}}get hasControls(){var t;return!(!this._stateObj||!this._config)&&(MM(this._stateObj,null!==(t=this._config.commands)&&void 0!==t?t:[])||this._isFanSpeedControlVisible(this._stateObj)||this._isModeControlVisible)}get _extraControlRows(){var t;if(!this._stateObj||!this._config)return 0;if("horizontal"===Dn(this._config).layout)return 0;const e=MM(this._stateObj,null!==(t=this._config.commands)&&void 0!==t?t:[]),o=this._isFanSpeedControlVisible(this._stateObj)||this._isModeControlVisible;return e&&o?1:0}getCardSize(){return super.getCardSize()+this._extraControlRows}getLayoutOptions(){const t=super.getLayoutOptions();return void 0!==t.grid_rows&&(t.grid_rows+=this._extraControlRows),t}getGridOptions(){const t=super.getGridOptions(),e=this._extraControlRows;return"number"==typeof t.rows&&(t.rows+=e),"number"==typeof t.min_rows&&(t.min_rows+=e),t}get _isModeControlVisible(){var t;return Boolean(null===(t=this._config)||void 0===t?void 0:t.show_mode_control)&&Boolean(this._modeStateObj)}get _modeStateObj(){var t,e;const o=null===(t=this._config)||void 0===t?void 0:t.mode_entity;return o?null===(e=this.hass)||void 0===e?void 0:e.states[o]:void 0}_isFanSpeedControlVisible(t){var e,o;return Boolean(null===(e=this._config)||void 0===e?void 0:e.show_fan_speed_control)&&(we(o=t,32)&&Array.isArray(o.attributes.fan_speed_list)&&o.attributes.fan_speed_list.length>0)}_computeStateDisplay(t){var e,o;let i=this.hass.formatEntityState(t);if((null===(e=this._config)||void 0===e?void 0:e.show_fan_speed_state)&&null!=t.attributes.fan_speed){i+=` ⸱ ${this.hass.formatEntityAttributeValue(t,"fan_speed")}`}const n=this._modeStateObj;return(null===(o=this._config)||void 0===o?void 0:o.show_mode_state)&&n&&(i+=` ⸱ ${this.hass.formatEntityState(n)}`),i}_handleAction(t){var e;const o=t.detail.action;Ni(this,this.hass,this._config,o);const i=this._config,n=i[`${o}_action`],r=null!==(e=null==n?void 0:n.entity)&&void 0!==e?e:i.entity;"more-info"===(null==n?void 0:n.action)&&i.mode_entity&&r&&r===i.entity&&HM(r,i.mode_entity,()=>this.hass,t=>{this._moreInfoModeControl=t})}updated(t){super.updated(t),t.has("hass")&&this._moreInfoModeControl&&(this._moreInfoModeControl.isConnected?this._moreInfoModeControl.hass=this.hass:this._moreInfoModeControl=void 0)}render(){var t,e;if(!this._config||!this.hass||!this._config.entity)return et;const o=this._stateObj;if(!o)return this.renderNotFound(this._config);const i=sg(this.hass,o,this._config.name),n=this._config.icon,r=Dn(this._config),a=ig(o,r.icon_type),s=zo(this.hass),l=null!==(t=null===(e=this._config)||void 0===e?void 0:e.commands)&&void 0!==t?t:[],c=this._computeStateDisplay(o),u=this._isFanSpeedControlVisible(o),h=this._isModeControlVisible?this._modeStateObj:void 0;return J`
+    `}_valueChanged(t){ve(this,"config-changed",{config:t.detail.value})}},_n([ie()],VM.prototype,"_config",void 0),VM=_n([Bt(kM)],VM)});Vt(),je(),De(),Re(),mn(),yn(),Nn(),jn(),Bn(),Ln(),_g(),ng(),EM(),bn();lg({type:wM,name:"Mushroom Vacuum Card",description:"Card for vacuum entity"});var YM,qM=class extends rg{static async getConfigElement(){return await Promise.resolve().then(()=>(KM(),GM)),document.createElement(kM)}static async getStubConfig(t){const e=Object.keys(t.states).filter(t=>$M.includes(t.split(".")[0]));return{type:`custom:${wM}`,entity:e[0]}}get hasControls(){var t;return!(!this._stateObj||!this._config)&&(MM(this._stateObj,null!==(t=this._config.commands)&&void 0!==t?t:[])||this._isFanSpeedControlVisible(this._stateObj)||this._isModeControlVisible)}get _extraControlRows(){var t;if(!this._stateObj||!this._config)return 0;if("horizontal"===Dn(this._config).layout)return 0;const e=MM(this._stateObj,null!==(t=this._config.commands)&&void 0!==t?t:[]),o=this._isFanSpeedControlVisible(this._stateObj)||this._isModeControlVisible;return e&&o?1:0}getCardSize(){return super.getCardSize()+this._extraControlRows}getLayoutOptions(){const t=super.getLayoutOptions();return void 0!==t.grid_rows&&(t.grid_rows+=this._extraControlRows),t}getGridOptions(){const t=super.getGridOptions(),e=this._extraControlRows;return"number"==typeof t.rows&&(t.rows+=e),"number"==typeof t.min_rows&&(t.min_rows+=e),t}get _isModeControlVisible(){var t;return Boolean(null===(t=this._config)||void 0===t?void 0:t.show_mode_control)&&Boolean(this._modeStateObj)}get _modeStateObj(){var t,e;const o=null===(t=this._config)||void 0===t?void 0:t.mode_entity;return o?null===(e=this.hass)||void 0===e?void 0:e.states[o]:void 0}_isFanSpeedControlVisible(t){var e,o;return Boolean(null===(e=this._config)||void 0===e?void 0:e.show_fan_speed_control)&&(we(o=t,32)&&Array.isArray(o.attributes.fan_speed_list)&&o.attributes.fan_speed_list.length>0)}_computeStateDisplay(t){var e,o;let i=this.hass.formatEntityState(t);if((null===(e=this._config)||void 0===e?void 0:e.show_fan_speed_state)&&null!=t.attributes.fan_speed){i+=` ⸱ ${this.hass.formatEntityAttributeValue(t,"fan_speed")}`}const n=this._modeStateObj;return(null===(o=this._config)||void 0===o?void 0:o.show_mode_state)&&n&&(i+=` ⸱ ${this.hass.formatEntityState(n)}`),i}_handleAction(t){var e;const o=t.detail.action;Ni(this,this.hass,this._config,o);const i=this._config,n=i[`${o}_action`],r=null!==(e=null==n?void 0:n.entity)&&void 0!==e?e:i.entity;"more-info"===(null==n?void 0:n.action)&&i.mode_entity&&r&&r===i.entity&&HM(r,i.mode_entity,()=>this.hass,t=>{this._moreInfoModeControl=t})}updated(t){super.updated(t),t.has("hass")&&this._moreInfoModeControl&&(this._moreInfoModeControl.isConnected?this._moreInfoModeControl.hass=this.hass:this._moreInfoModeControl=void 0)}render(){var t,e;if(!this._config||!this.hass||!this._config.entity)return et;const o=this._stateObj;if(!o)return this.renderNotFound(this._config);const i=sg(this.hass,o,this._config.name),n=this._config.icon,r=Dn(this._config),a=ig(o,r.icon_type),s=zo(this.hass),l=null!==(t=null===(e=this._config)||void 0===e?void 0:e.commands)&&void 0!==t?t:[],c=this._computeStateDisplay(o),u=this._isFanSpeedControlVisible(o),h=this._isModeControlVisible?this._modeStateObj:void 0;return J`
       <ha-card
         class=${de({"fill-container":r.fill_container})}
       >
@@ -3687,6 +3682,7 @@ var t,e,o,i,n,r,a,s,l,c,u,h,d,p,m,f,g,_,v,b,y,w,k,$,C,E,x,A,S,T,M,I,z,P,N,O,j,B,
                         <mushroom-select-option-control
                           .hass=${this.hass}
                           .entity=${h}
+                          .icon=${"mdi:broom"}
                         ></mushroom-select-option-control>
                       `:et}
                 </div>
