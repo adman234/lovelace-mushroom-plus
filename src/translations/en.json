@@ -128,6 +128,7 @@
         "show_fan_speed_control": "Fan speed control?",
         "show_fan_speed_state": "Show fan speed in state?",
         "mode_entity": "Cleaning mode entity (vacuum, mop, vacuum & mop...)",
+        "show_mode_control": "Cleaning mode control?",
         "show_mode_state": "Show cleaning mode in state?"
       },
       "weather": {

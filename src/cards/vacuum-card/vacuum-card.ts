@@ -80,7 +80,7 @@ export class VacuumCard
     return (
       isCommandsControlSupported(this._stateObj, this._config.commands ?? []) ||
       this._isFanSpeedControlVisible(this._stateObj) ||
-      Boolean(this._modeStateObj)
+      this._isModeControlVisible
     );
   }
 
@@ -96,7 +96,7 @@ export class VacuumCard
     );
     const hasSelects =
       this._isFanSpeedControlVisible(this._stateObj) ||
-      Boolean(this._modeStateObj);
+      this._isModeControlVisible;
     return hasCommands && hasSelects ? 1 : 0;
   }
 
@@ -118,6 +118,12 @@ export class VacuumCard
     if (typeof options.rows === "number") options.rows += extra;
     if (typeof options.min_rows === "number") options.min_rows += extra;
     return options;
+  }
+
+  private get _isModeControlVisible(): boolean {
+    return (
+      Boolean(this._config?.show_mode_control) && Boolean(this._modeStateObj)
+    );
   }
 
   private get _modeStateObj(): HassEntity | undefined {
@@ -176,7 +182,9 @@ export class VacuumCard
     const commands = this._config?.commands ?? [];
     const stateDisplay = this._computeStateDisplay(stateObj);
     const fanSpeedVisible = this._isFanSpeedControlVisible(stateObj);
-    const modeStateObj = this._modeStateObj;
+    const modeStateObj = this._isModeControlVisible
+      ? this._modeStateObj
+      : undefined;
 
     return html`
       <ha-card

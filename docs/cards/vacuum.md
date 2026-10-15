@@ -26,6 +26,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `show_fan_speed_control` | boolean                                             | `false`     | Show a dropdown to change the vacuum fan speed                                      |
 | `show_fan_speed_state`   | boolean                                             | `false`     | Show the current fan speed next to the state                                        |
 | `mode_entity`            | string                                              | Optional    | `select`/`input_select` entity for the cleaning mode (vacuum, mop, vacuum & mop...) |
+| `show_mode_control`      | boolean                                             | `false`     | Show a dropdown to change the cleaning mode                                         |
 | `show_mode_state`        | boolean                                             | `false`     | Show the current cleaning mode next to the state                                    |
 | `tap_action`             | action                                              | `more-info` | Home assistant action to perform on tap                                             |
 | `hold_action`            | action                                              | `more-info` | Home assistant action to perform on hold                                            |
@@ -33,7 +34,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 
 ### Fan speed and cleaning mode
 
-Most integrations (Roborock, Dreame, Ecovacs...) expose the cleaning mode (vacuum, mop, vacuum & mop...) as a separate `select` entity. Set it as `mode_entity` to get a dropdown in the card.
+Most integrations (Roborock, Dreame, Ecovacs...) expose the cleaning mode (vacuum, mop, vacuum & mop...) as a separate `select` entity. Set it as `mode_entity` and enable `show_mode_control` to get a dropdown in the card.
 
 ```yaml
 type: custom:mushroom-vacuum-card
@@ -44,5 +45,6 @@ commands:
 show_fan_speed_control: true
 show_fan_speed_state: true
 mode_entity: select.robot_cleaning_mode
+show_mode_control: true
 show_mode_state: true
 ```

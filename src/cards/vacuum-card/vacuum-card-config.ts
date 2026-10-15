@@ -34,6 +34,7 @@ export type VacuumCardConfig = LovelaceCardConfig &
     show_fan_speed_control?: boolean;
     show_fan_speed_state?: boolean;
     mode_entity?: string;
+    show_mode_control?: boolean;
     show_mode_state?: boolean;
   };
 
@@ -50,6 +51,7 @@ export const vacuumCardConfigStruct = assign(
     show_fan_speed_control: optional(boolean()),
     show_fan_speed_state: optional(boolean()),
     mode_entity: optional(string()),
+    show_mode_control: optional(boolean()),
     show_mode_state: optional(boolean()),
   })
 );

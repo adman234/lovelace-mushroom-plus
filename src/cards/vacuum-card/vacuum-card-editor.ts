@@ -23,6 +23,7 @@ const VACUUM_LABELS = [
   "show_fan_speed_control",
   "show_fan_speed_state",
   "mode_entity",
+  "show_mode_control",
   "show_mode_state",
 ];
 
@@ -75,7 +76,14 @@ const computeSchema = memoizeOne(
       name: "mode_entity",
       selector: { entity: { domain: ["select", "input_select"] } },
     },
-    { name: "show_mode_state", selector: { boolean: {} } },
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "show_mode_control", selector: { boolean: {} } },
+        { name: "show_mode_state", selector: { boolean: {} } },
+      ],
+    },
     ...computeActionsFormSchema(),
   ]
 );
