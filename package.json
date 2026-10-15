@@ -6,6 +6,7 @@
   "scripts": {
     "start": "concurrently --kill-others --names build,serve \"vite build --watch\" \"vite preview\"",
     "build": "vite build",
+    "build:plus": "vite build --config vite.plus.config.ts",
     "format": "prettier --write .",
     "start:hass-stable": "docker run --rm -p8123:8123 -v ./.hass_dev:/config homeassistant/home-assistant:stable",
     "start:hass": "docker run --rm -p8123:8123 -v ./.hass_dev:/config homeassistant/home-assistant:beta",

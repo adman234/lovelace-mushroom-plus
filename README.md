@@ -1,3 +1,15 @@
+# Mushroom Plus
+
+A fork of [Mushroom](https://github.com/piitaya/lovelace-mushroom) that only ships an extended **vacuum card** (fan speed and cleaning mode dropdowns, shown in the card state and in the vacuum dialog). It is installed **alongside** the original Mushroom: all elements are prefixed with `mushroom-plus-` so they don't clash.
+
+- Install with HACS as a custom repository (type: Dashboard): `https://github.com/adman234/lovelace-mushroom-plus`
+- Use it with `type: custom:mushroom-plus-vacuum-card` (same options as the Mushroom vacuum card, plus the ones in [docs/cards/vacuum.md](docs/cards/vacuum.md))
+- Keep using the original Mushroom for every other card.
+
+Build with `npm run build:plus`. Publishing a `v*.*.*` tag creates a release that HACS picks up.
+
+---
+
 # 🍄 Mushroom
 
 [![hacs][hacs-badge]][hacs-url]

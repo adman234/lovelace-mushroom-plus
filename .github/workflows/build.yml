@@ -12,3 +12,5 @@ jobs:
               run: npm ci
             - name: Build
               run: npm run build
+            - name: Build Mushroom Plus
+              run: npm run build:plus
