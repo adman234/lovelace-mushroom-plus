@@ -18,7 +18,13 @@ import {
   vacuumCardConfigStruct,
 } from "./vacuum-card-config";
 
-const VACUUM_LABELS = ["commands"];
+const VACUUM_LABELS = [
+  "commands",
+  "show_fan_speed_control",
+  "show_fan_speed_state",
+  "mode_entity",
+  "show_mode_state",
+];
 
 const computeSchema = memoizeOne(
   (
@@ -57,6 +63,19 @@ const computeSchema = memoizeOne(
         },
       },
     },
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "show_fan_speed_control", selector: { boolean: {} } },
+        { name: "show_fan_speed_state", selector: { boolean: {} } },
+      ],
+    },
+    {
+      name: "mode_entity",
+      selector: { entity: { domain: ["select", "input_select"] } },
+    },
+    { name: "show_mode_state", selector: { boolean: {} } },
     ...computeActionsFormSchema(),
   ]
 );

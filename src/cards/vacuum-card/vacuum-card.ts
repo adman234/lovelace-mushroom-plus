@@ -31,7 +31,10 @@ import {
   VACUUM_CARD_NAME,
   VACUUM_ENTITY_DOMAINS,
 } from "./const";
+import "../select-card/controls/select-option-control";
 import "./controls/vacuum-commands-control";
+import "./controls/vacuum-fan-speed-control";
+import { isFanSpeedControlSupported } from "./controls/vacuum-fan-speed-control";
 import {
   isCommandsControlSupported,
   isCommandsControlVisible,
@@ -72,10 +75,42 @@ export class VacuumCard
 
   protected get hasControls() {
     if (!this._stateObj || !this._config) return false;
-    return isCommandsControlSupported(
-      this._stateObj,
-      this._config.commands ?? []
+    return (
+      isCommandsControlSupported(this._stateObj, this._config.commands ?? []) ||
+      this._isFanSpeedControlVisible(this._stateObj) ||
+      Boolean(this._modeStateObj)
     );
+  }
+
+  private get _modeStateObj(): HassEntity | undefined {
+    const entityId = this._config?.mode_entity;
+    return entityId ? this.hass?.states[entityId] : undefined;
+  }
+
+  private _isFanSpeedControlVisible(stateObj: VacuumEntity): boolean {
+    return (
+      Boolean(this._config?.show_fan_speed_control) &&
+      isFanSpeedControlSupported(stateObj)
+    );
+  }
+
+  private _computeStateDisplay(stateObj: VacuumEntity): string {
+    let stateDisplay = this.hass.formatEntityState(stateObj);
+    if (
+      this._config?.show_fan_speed_state &&
+      stateObj.attributes.fan_speed != null
+    ) {
+      const fanSpeed = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "fan_speed"
+      );
+      stateDisplay += ` ⸱ ${fanSpeed}`;
+    }
+    const modeStateObj = this._modeStateObj;
+    if (this._config?.show_mode_state && modeStateObj) {
+      stateDisplay += ` ⸱ ${this.hass.formatEntityState(modeStateObj)}`;
+    }
+    return stateDisplay;
   }
 
   private _handleAction(ev: ActionHandlerEvent) {
@@ -101,6 +136,9 @@ export class VacuumCard
     const rtl = computeRTL(this.hass);
 
     const commands = this._config?.commands ?? [];
+    const stateDisplay = this._computeStateDisplay(stateObj);
+    const fanSpeedVisible = this._isFanSpeedControlVisible(stateObj);
+    const modeStateObj = this._modeStateObj;
 
     return html`
       <ha-card
@@ -120,7 +158,7 @@ export class VacuumCard
               ? this.renderPicture(picture)
               : this.renderIcon(stateObj, icon)}
             ${this.renderBadge(stateObj)}
-            ${this.renderStateInfo(stateObj, appearance, name)};
+            ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
           </mushroom-state-item>
           ${isCommandsControlVisible(stateObj, commands)
             ? html`
@@ -132,6 +170,28 @@ export class VacuumCard
                     .fill=${appearance.layout !== "horizontal"}
                   >
                   </mushroom-vacuum-commands-control>
+                </div>
+              `
+            : nothing}
+          ${fanSpeedVisible || modeStateObj
+            ? html`
+                <div class="actions selects" ?rtl=${rtl}>
+                  ${fanSpeedVisible
+                    ? html`
+                        <mushroom-vacuum-fan-speed-control
+                          .hass=${this.hass}
+                          .entity=${stateObj}
+                        ></mushroom-vacuum-fan-speed-control>
+                      `
+                    : nothing}
+                  ${modeStateObj
+                    ? html`
+                        <mushroom-select-option-control
+                          .hass=${this.hass}
+                          .entity=${modeStateObj}
+                        ></mushroom-select-option-control>
+                      `
+                    : nothing}
                 </div>
               `
             : nothing}
@@ -182,6 +242,16 @@ export class VacuumCard
         }
         mushroom-vacuum-commands-control {
           flex: 1;
+        }
+        .actions.selects {
+          overflow: visible;
+        }
+        mushroom-vacuum-fan-speed-control,
+        mushroom-select-option-control {
+          flex: 1;
+          min-width: 0;
+          --card-primary-color: rgb(var(--rgb-state-vacuum));
+          --mdc-theme-primary: rgb(var(--rgb-state-vacuum));
         }
       `,
     ];
