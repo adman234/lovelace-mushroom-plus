@@ -13,6 +13,8 @@ import {
   isActive,
   LovelaceCard,
   LovelaceCardEditor,
+  LovelaceGridOptions,
+  LovelaceLayoutOptions,
   VacuumEntity,
 } from "../../ha";
 import "../../shared/badge-icon";
@@ -80,6 +82,42 @@ export class VacuumCard
       this._isFanSpeedControlVisible(this._stateObj) ||
       Boolean(this._modeStateObj)
     );
+  }
+
+  // The base card reserves a single row for controls. When both the
+  // commands and the dropdowns are displayed, we need an extra row.
+  private get _extraControlRows(): number {
+    if (!this._stateObj || !this._config) return 0;
+    const appearance = computeAppearance(this._config);
+    if (appearance.layout === "horizontal") return 0;
+    const hasCommands = isCommandsControlSupported(
+      this._stateObj,
+      this._config.commands ?? []
+    );
+    const hasSelects =
+      this._isFanSpeedControlVisible(this._stateObj) ||
+      Boolean(this._modeStateObj);
+    return hasCommands && hasSelects ? 1 : 0;
+  }
+
+  public getCardSize(): number | Promise<number> {
+    return (super.getCardSize() as number) + this._extraControlRows;
+  }
+
+  public getLayoutOptions(): LovelaceLayoutOptions {
+    const options = super.getLayoutOptions();
+    if (options.grid_rows !== undefined) {
+      options.grid_rows += this._extraControlRows;
+    }
+    return options;
+  }
+
+  public getGridOptions(): LovelaceGridOptions {
+    const options = super.getGridOptions();
+    const extra = this._extraControlRows;
+    if (typeof options.rows === "number") options.rows += extra;
+    if (typeof options.min_rows === "number") options.min_rows += extra;
+    return options;
   }
 
   private get _modeStateObj(): HassEntity | undefined {
