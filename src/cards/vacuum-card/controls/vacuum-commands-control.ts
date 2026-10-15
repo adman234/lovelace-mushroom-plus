@@ -16,6 +16,8 @@ import {
   VACUUM_SUPPORT_TURN_OFF,
   VACUUM_SUPPORT_TURN_ON,
 } from "../../../ha";
+import "../../../shared/button";
+import "../../../shared/button-group";
 import { isCleaning, isReturningHome, isStopped } from "../utils";
 import { VacuumCommand } from "../vacuum-card-config";
 
