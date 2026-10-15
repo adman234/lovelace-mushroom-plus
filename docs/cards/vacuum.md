@@ -36,6 +36,8 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 
 Most integrations (Roborock, Dreame, Ecovacs...) expose the cleaning mode (vacuum, mop, vacuum & mop...) as a separate `select` entity. Set it as `mode_entity` and enable `show_mode_control` to get a dropdown in the card.
 
+When `mode_entity` is set, the cleaning mode dropdown is also added to the vacuum dialog that opens when you tap the card (next to the fan speed).
+
 ```yaml
 type: custom:mushroom-vacuum-card
 entity: vacuum.robot

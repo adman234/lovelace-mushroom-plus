@@ -1,5 +1,12 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -41,6 +48,10 @@ import {
   isCommandsControlSupported,
   isCommandsControlVisible,
 } from "./controls/vacuum-commands-control";
+import {
+  injectModeControlInMoreInfo,
+  VacuumMoreInfoModeControl,
+} from "./more-info-mode-control";
 import { isCleaning, isReturningHome } from "./utils";
 import { VacuumCardConfig } from "./vacuum-card-config";
 
@@ -157,8 +168,44 @@ export class VacuumCard
     return stateDisplay;
   }
 
+  private _moreInfoModeControl?: VacuumMoreInfoModeControl;
+
   private _handleAction(ev: ActionHandlerEvent) {
-    handleAction(this, this.hass!, this._config!, ev.detail.action!);
+    const action = ev.detail.action!;
+    handleAction(this, this.hass!, this._config!, action);
+
+    // Add the cleaning mode select to the vacuum more-info dialog
+    const config = this._config!;
+    const actionConfig = config[`${action}_action`] as
+      | { action: string; entity?: string }
+      | undefined;
+    const entityId = actionConfig?.entity ?? config.entity;
+    if (
+      actionConfig?.action === "more-info" &&
+      config.mode_entity &&
+      entityId &&
+      entityId === config.entity
+    ) {
+      injectModeControlInMoreInfo(
+        entityId,
+        config.mode_entity,
+        () => this.hass,
+        (control) => {
+          this._moreInfoModeControl = control;
+        }
+      );
+    }
+  }
+
+  protected updated(changedProps: PropertyValues): void {
+    super.updated(changedProps);
+    if (changedProps.has("hass") && this._moreInfoModeControl) {
+      if (this._moreInfoModeControl.isConnected) {
+        this._moreInfoModeControl.hass = this.hass;
+      } else {
+        this._moreInfoModeControl = undefined;
+      }
+    }
   }
 
   protected render() {
