@@ -3,6 +3,13 @@ on:
     push:
         tags:
             - "v*.*.*"
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Version tag to release (e.g. v1.0.0)"
+                required: true
+permissions:
+    contents: write
 jobs:
     release:
         runs-on: ubuntu-latest
@@ -15,8 +22,9 @@ jobs:
               run: npm run build:plus
             - name: Release
               uses: softprops/action-gh-release@v1
-              if: startsWith(github.ref, 'refs/tags/')
               with:
+                  tag_name: ${{ inputs.version || github.ref_name }}
+                  target_commitish: ${{ github.sha }}
                   draft: false
                   generate_release_notes: true
                   files: dist/mushroom-plus.js
